@@ -38,7 +38,7 @@ module.exports = function (grunt) {
     shell: {
       'publish': {
         command: [
-          '[ ! -f "' + jar + '" ]', // correct jar must be there
+          '[ -f ' + jar + ' ]', // correct jar must be there
           [ 'npm publish', registry ].join(' ')
         ].join('&&')
       },
@@ -53,7 +53,7 @@ module.exports = function (grunt) {
           "[ $(git status | head -n 1 | awk '{ print $3 }') == '" + master + "' ]", // minors only from master branch
           '[ -z "$(git status -s)" ]', // no untracked files
           'git diff --cached --exit-code --no-patch', // no modified files
-          '[ ! -f "' + jar + '" ]', // correct jar must be there
+          '[ -f ' + jar + ' ]', // correct jar must be there
           'grunt bump:minor',
           'grunt shell:publish',
           'git checkout -b ' + newTag + ' ' + tag,
@@ -68,7 +68,7 @@ module.exports = function (grunt) {
           "[[ $(git status | head -n 1 | awk '{ print $3 }') =~ ^v[0-9]+\.[0-9]+\.x$ ]]", // patches only from vM.m.x branches
           '[ -z "$(git status -s)" ]', // no untracked files
           'git diff --cached --exit-code --no-patch', // no modified files
-          '[ ! -f "' + jar + '" ]', // correct jar must be there
+          '[ -f ' + jar + ' ]', // correct jar must be there
           'grunt bump:patch',
           'grunt shell:publish',
           'grunt bump:prepatch --no-tag'
@@ -79,7 +79,7 @@ module.exports = function (grunt) {
         'command': [
           '[ -z "$(git status -s)" ]', // no untracked files
           'git diff --cached --exit-code --no-patch', // no modified files
-          '[ ! -f "' + jar + '" ]', // correct jar must be there
+          '[ -f ' + jar + ' ]', // correct jar must be there
           'git tag v' + packageJson.version,
           'grunt shell:publish',
           'grunt bump:prerelease --no-tag'
