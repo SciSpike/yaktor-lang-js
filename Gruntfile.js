@@ -82,6 +82,7 @@ module.exports = function (grunt) {
           '[ -f ' + jar + ' ]', // correct jar must be there
           'git tag v' + packageJson.version,
           'grunt shell:publish',
+          'git push --tags',
           'grunt bump:prerelease --no-tag'
         ].join('&&'),
         help: 'Release a preview. You must do this in a clean working directory in any branch.'
