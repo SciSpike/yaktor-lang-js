@@ -20,8 +20,10 @@
     "yaktor-lang": "./bin/generate.js"
   },
   "scripts": {
+    "fetch-cli": "grunt fetch-cli",
     "lint": "standard --verbose",
     "format": "standard-format",
+    "pre": "grunt release-pre",
     "patch": "grunt release-patch",
     "minor": "grunt release-minor"
   }

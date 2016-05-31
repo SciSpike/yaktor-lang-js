@@ -53,6 +53,7 @@ module.exports = function (grunt) {
           "[ $(git status | head -n 1 | awk '{ print $3 }') == '" + master + "' ]", // minors only from master branch
           '[ -z "$(git status -s)" ]', // no untracked files
           'git diff --cached --exit-code --no-patch', // no modified files
+          'grunt shell:fetch-cli', // get correct jar
           '[ -f ' + jar + ' ]', // correct jar must be there
           'grunt bump:minor',
           'grunt shell:publish',
@@ -68,6 +69,7 @@ module.exports = function (grunt) {
           "[[ $(git status | head -n 1 | awk '{ print $3 }') =~ ^v[0-9]+\.[0-9]+\.x$ ]]", // patches only from vM.m.x branches
           '[ -z "$(git status -s)" ]', // no untracked files
           'git diff --cached --exit-code --no-patch', // no modified files
+          'grunt shell:fetch-cli', // get correct jar
           '[ -f ' + jar + ' ]', // correct jar must be there
           'grunt bump:patch',
           'grunt shell:publish',
@@ -79,6 +81,7 @@ module.exports = function (grunt) {
         'command': [
           '[ -z "$(git status -s)" ]', // no untracked files
           'git diff --cached --exit-code --no-patch', // no modified files
+          'grunt shell:fetch-cli', // get correct jar
           '[ -f ' + jar + ' ]', // correct jar must be there
           'git tag v' + packageJson.version,
           'grunt shell:publish',
@@ -100,4 +103,5 @@ module.exports = function (grunt) {
   grunt.registerTask('release-patch', [ 'shell:pull', 'shell:release-patch' ])
   grunt.registerTask('release-minor', [ 'shell:pull', 'shell:release-minor' ])
   grunt.registerTask('release-pre', [ 'shell:pull', 'shell:release-pre' ])
+  grunt.registerTask('fetch-cli', [ 'shell:pull', 'shell:fetch-cli' ])
 }
