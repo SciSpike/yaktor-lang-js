@@ -1,5 +1,6 @@
 # `yaktor-lang`
-This is a thin npm module wrapping the Java command line runnable jar built by [yaktor-dsl-xtext](https://github.com/SciSpike/yaktor-dsl-xtext).
+This is an npm module that generates Node.js-based JavaScript code for Yaktor-based applications from Yaktor's Domain & Conversation DSLs.  It is a thin wrapper around the Java command line runnable jar built by [yaktor-dsl-xtext](https://github.com/SciSpike/yaktor-dsl-xtext), so this module requires that `java` version `1.7.0` or later be on the machine's path whereon this module is installed.
+
 ## Version correspondence
 In this repo, [semver](http://semver.org/) is employed, and prerelease versions are signifed with a `-pre.n` suffix, where `n` is the iteration of the prerelease version. However, in the Maven world of [yaktor-dsl-xtext](https://github.com/SciSpike/yaktor-dsl-xtext),
 prereleases are signifed by a `-SNAPSHOT` suffix.  So, for example, version `1.0.0-pre.0` of this module will contain Maven artifact `io.yaktor:yaktor-xtext-dsl-cli:1.0.0-SNAPSHOT` in the `bin` directory, which resolves to file `bin/yaktor-xtext-dsl-cli-1.0.0-SNAPSHOT.jar`.  All prerelease iteration numbers (`n` from above) will map to `-SNAPSHOT`.
