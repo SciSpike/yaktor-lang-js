@@ -15,17 +15,19 @@ To build this module locally, first ensure that the Maven runnable jar artifact 
 
 ## Releasing
 
-You can release major updates, minor updates, patches & previews from this module.  The general pattern is to invoke `grunt release-xxx`, where `xxx` is `minor` (for major & minor releases — see below), `patch` for patches, or `pre` for preview releases.  All releases must meet the following preconditions prior to being released:
+You can publish major releases, minor releases, patches & previews from this module.  The general pattern is to invoke `grunt release-xxx`, where `xxx` is `minor` (for major & minor releases — see below), `patch` for patches, or `pre` for preview releases.  All releases must meet the following preconditions prior to being released:
 
 * there can be no untracked files (files ignored by `.gitignore` are ok, though)
 * there can be no modified files (all files must be committed), and
 * the version of Maven artifact `io.yaktor:yaktor-xtext-dsl-cli` corresponding to this module's version must be obtainable via the [`maven-dependency-plugin`](http://maven.apache.org/plugins/maven-dependency-plugin/index.html)'s [`copy`](http://maven.apache.org/plugins/maven-dependency-plugin/copy-mojo.html) goal.
 
+In order to release, you must be logged in via `npm login` to an npm account that has authorization to publish releases from the Yaktor npm organization on [npmjs.com](https://www.npmjs.com).  Contact yaktor@scsipike.com for more information.
+
 ### Branching strategy
 
 The `master` branch contains the latest & greatest, and will normally have a `-pre.n` prerelease suffix in source control, where `n` is the next iteration of the prerelease, usually `0`.  It is the branch where releases almost always come from.
 
-Once a major or minor version is released, a branch of the form `vm.n.x` is created, where `m` is the major version, `n` is the minor version, and `x` is the literal, `x`.  It is from this branch that patches are produced, and a patch release is identified by a tag in this branch of the form `vm.n.p`, where `m` & `n` are the major & minor versions, respectively, and `p` is the patch version.
+Once a major or minor release is published, a branch of the form `vm.n.x` is created, where `m` is the major version, `n` is the minor version, and `x` is the literal, `x`.  It is from this branch that patches are published, and a patch release is identified by a tag in this branch of the form `vm.n.p`, where `m` & `n` are the major & minor versions, respectively, and `p` is the patch version.
 
 For example, if version `1.0.0` is released from `master`, the postconditions are
 
