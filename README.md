@@ -1,7 +1,19 @@
 # `yaktor-lang`
-This is an npm module that generates Node.js-based JavaScript code for Yaktor-based applications from Yaktor's Domain & Conversation DSLs.  It is a thin wrapper around the Java command line runnable jar built by [yaktor-dsl-xtext](https://github.com/SciSpike/yaktor-dsl-xtext), so this module requires that `java` version `1.7.0` or later be on the machine's path whereon this module is installed.
+This is an npm module that generates Node.js-based JavaScript code for Yaktor-based applications from Yaktor's Domain & Conversation DSLs.  It is a thin wrapper around the Java command line runnable jar built by [yaktor-dsl-xtext](https://github.com/SciSpike/yaktor-dsl-xtext), so this module requires that `java` version `1.7.0` or later be on the machine's path whereon this module is run.
 
-## Version correspondence
+## Usage
+
+`yaktor-lang dslfile [dslfiles…]`
+
+Run the above command from the root of your Yaktor project.  A common form of the command is to use `find`:
+
+`find . -name '*.dm' -o -name '*.cl'| xargs yaktor-lang`
+
+## For Yaktor developers
+
+The following is information for those working on Yaktor itself.
+
+### Version correspondence
 In this repo, [semver](http://semver.org/) is employed, and prerelease versions are signifed with a `-pre.n` suffix, where `n` is the iteration of the prerelease version. However, in the Maven world of [yaktor-dsl-xtext](https://github.com/SciSpike/yaktor-dsl-xtext),
 prereleases are signifed by a `-SNAPSHOT` suffix.  So, for example, version `1.0.0-pre.0` of this module will contain Maven artifact `io.yaktor:yaktor-xtext-dsl-cli:1.0.0-SNAPSHOT` in the `bin` directory, which resolves to file `bin/yaktor-xtext-dsl-cli-1.0.0-SNAPSHOT.jar`.  All prerelease iteration numbers (`n` from above) will map to `-SNAPSHOT`.
 
@@ -9,11 +21,11 @@ For non-prerelease versions, the version correspondence is one-to-one:  `yaktor-
 
 Essentially, the versions of this module and Maven artifact `io.yaktor:yaktor-dsl-text-cli` are linked; a change in one will force a change in the other, a process that must be manually enforced.
 
-## Building
+### Building
 
 To build this module locally, first ensure that the Maven runnable jar artifact exists either in your local `.m2` repository or in a remote, then execute either `npm run fetch-cli` or `grunt fetch-cli` (the former simply delegates to the latter).  Alternatively, if you have a jar you need to test, it can be placed in the `bin` directory manually, ensuring that the jar filename is `yaktor-xtext-dsl-cli-version.jar`, where `version` matches this module's version according to the above section on version correspondence.
 
-## Releasing
+### Releasing
 
 You can publish major releases, minor releases, patches & previews from this module.  The general pattern is to invoke `grunt release-xxx`, where `xxx` is `minor` (for major & minor releases — see below), `patch` for patches, or `pre` for preview releases.  All releases must meet the following preconditions prior to being released:
 
@@ -23,7 +35,7 @@ You can publish major releases, minor releases, patches & previews from this mod
 
 In order to release, you must be logged in via `npm login` to an npm account that has authorization to publish releases from the Yaktor npm organization on [npmjs.com](https://www.npmjs.com).  Contact yaktor@scsipike.com for more information.
 
-### Branching strategy
+#### Branching strategy
 
 The `master` branch contains the latest & greatest, and will normally have a `-pre.n` prerelease suffix in source control, where `n` is the next iteration of the prerelease, usually `0`.  It is the branch where releases almost always come from.
 
@@ -41,7 +53,7 @@ Further, if version `1.0.0` is patched & released,
 * the tag `v1.0.1` is created to the commit in the `v1.0.x` branch & points to the commit representing the release, and
 * the `package.json`'s version in the `v1.0.x` branch is bumped to `1.0.2-pre.0`
 
-### Major & minor releases
+#### Major & minor releases
 
 In addition to the release requirements above, major & minor releases are required to come from the `master` branch; there is machinery in `Gruntfile.js` to enforce this rule.  In order to perform the release, issue the command `npm run minor` or `grunt release-minor`.
 
@@ -49,7 +61,7 @@ It is worth noting that major releases are no different than minor releases, exc
 
 In both the major & minor release scenarios, a new branch is created representing the release for that minor version.
 
-### Patch releases
+#### Patch releases
 
 In addition to the release requirements above, patch releases are required to come from the maintenance branch of the patch's minor release; there is machinery in `Gruntfile.js` to enforce this rule.  Once released, the postconditions are
 
@@ -60,7 +72,7 @@ To release a patch, issue command `npm run patch` or `grunt release-patch`.
 
 For example, if it's decided to release a patch in maintenance branch `v1.2.x` and the current `package.json` version is `1.2.3-pre.0`, then after the release command executes successfully, there will be a tag called `v1.2.3` pointing at the appropriate commit representing the release, and the `package.json` version in branch `v1.2.x` will be bumped to `1.2.4-pre.0`.
 
-### Preview releases
+#### Preview releases
 
 A preview release can be published at any time from any branch.  The requirements are simply those listed above for all releases.  Once released, the postconditions are
 
