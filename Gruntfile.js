@@ -7,7 +7,6 @@ module.exports = function (grunt) {
   })
   var dir = null
   var basePath = grunt.option('basePath') || './'
-  var registry = '--registry=http://npm.scispike.com'
   var path = require('path')
   var packageJson = require(path.resolve('package.json'))
   var tag = 'v' + packageJson.version.match(/^(\d+\.\d+\.\d+).*$/)[1]
@@ -39,14 +38,14 @@ module.exports = function (grunt) {
       'publish': {
         command: [
           '[ -f ' + jar + ' ]', // correct jar must be there
-          [ 'npm publish', registry ].join(' ')
+          [ 'npm publish' ].join(' ')
         ].join('&&')
       },
       'pull': {
         command: 'git pull'
       },
       'add-owner': {
-        command: [ 'npm owner add', grunt.option('owner'), packageJson.name, registry ].join(' ')
+        command: [ 'npm owner add', grunt.option('owner'), packageJson.name].join(' ')
       },
       'release-minor': {
         'command': [
