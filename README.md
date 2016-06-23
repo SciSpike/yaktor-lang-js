@@ -1,13 +1,28 @@
-# `yaktor-lang`
-This is an npm module that generates Node.js-based JavaScript code for Yaktor-based applications from Yaktor's Domain & Conversation DSLs.  It is a thin wrapper around the Java command line runnable jar built by [yaktor-dsl-xtext](https://github.com/SciSpike/yaktor-dsl-xtext), so this module requires that `java` version `1.7.0` or later be on the machine's path whereon this module is run.
+# yaktor-lang
+
+Generate Node.js code from Domain & Conversation DSLs.  
+
+## Description
+
+Generate default implementation for a [Yaktor](https://github.com/Scispike/yaktor) project based on the `cl` and `dm` syntax.
+The generated code can easily be extended and enhanced. As well you can maintain documentation which add value to the generated code. 
+
+
 
 ## Usage
 
-`yaktor-lang dslfile [dslfiles…]`
+It is a thin wrapper around the Java command line runnable jar built by [yaktor-dsl-xtext](https://github.com/SciSpike/yaktor-dsl-xtext), so this module requires that `java` version `1.7.0` or later be on the machine's path whereon this module is run.
+
+```bash
+yaktor-lang files ... 
+```
+Where files are `cl` and/or `dm` syntax files.
 
 Run the above command from the root of your Yaktor project.  A common form of the command is to use `find`:
 
-`find . -name '*.dm' -o -name '*.cl'| xargs yaktor-lang`
+```bash
+find . -name '*.dm' -o -name '*.cl'| xargs yaktor-lang
+```
 
 ## For Yaktor developers
 
