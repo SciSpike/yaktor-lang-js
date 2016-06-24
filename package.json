@@ -1,6 +1,6 @@
 {
   "name": "yaktor-lang",
-  "version": "0.1.0-pre.3",
+  "version": "0.1.0",
   "dependencies": {},
   "devDependencies": {
     "commander": "2.9.0",
