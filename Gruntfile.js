@@ -53,7 +53,7 @@ module.exports = function (grunt) {
       },
       'create-maintenance-branch':{
         command:'git checkout -b ' + newTag + ' ' + tag
-      }
+      },
       'release-minor': {
         'command': [
           "[ $(git status | head -n 1 | awk '{ print $3 }') == '" + master + "' ]", // minors only from master branch
