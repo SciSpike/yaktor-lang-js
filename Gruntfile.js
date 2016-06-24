@@ -9,6 +9,9 @@ module.exports = function (grunt) {
   var basePath = grunt.option('basePath') || './'
   var path = require('path')
   var packageJson = require(path.resolve('package.json'))
+  //tag could just use .version 
+  //this is only used during minor releases
+  //during minor releases the version is always x.x.0
   var tag = 'v' + packageJson.version.match(/^(\d+\.\d+\.\d+).*$/)[ 1 ]
   var newTag = tag.replace(/\.\d+$/, '.x')
   var master = grunt.option('source-branch') || 'master'
@@ -48,16 +51,18 @@ module.exports = function (grunt) {
       'add-owner': {
         command: [ 'npm owner add', grunt.option('owner'), packageJson.name ].join(' ')
       },
+      'create-maintenance-branch':{
+        command:'git checkout -b ' + newTag + ' ' + tag
+      }
       'release-minor': {
         'command': [
           "[ $(git status | head -n 1 | awk '{ print $3 }') == '" + master + "' ]", // minors only from master branch
           '[ -z "$(git status -s)" ]', // no untracked files
           'git diff --cached --exit-code --no-patch', // no modified files
-          'grunt shell:fetch-cli', // get correct jar
-          '[ -f ' + jar + ' ]', // correct jar must be there
           'grunt bump:minor',
+          'grunt shell:fetch-cli', // get correct jar
           'grunt shell:publish',
-          'git checkout -b ' + newTag + ' ' + tag,
+          'grunt shell:create-maintenance-branch',
           'grunt bump:prepatch --no-tag',
           'git checkout master',
           'grunt bump:preminor --no-tag'
@@ -69,9 +74,8 @@ module.exports = function (grunt) {
           "[[ $(git status | head -n 1 | awk '{ print $3 }') =~ ^v[0-9]+\.[0-9]+\.x$ ]]", // patches only from vM.m.x branches
           '[ -z "$(git status -s)" ]', // no untracked files
           'git diff --cached --exit-code --no-patch', // no modified files
-          'grunt shell:fetch-cli', // get correct jar
-          '[ -f ' + jar + ' ]', // correct jar must be there
           'grunt bump:patch',
+          'grunt shell:fetch-cli', // get correct jar
           'grunt shell:publish',
           'grunt bump:prepatch --no-tag'
         ].join('&&'),
@@ -82,7 +86,6 @@ module.exports = function (grunt) {
           '[ -z "$(git status -s)" ]', // no untracked files
           'git diff --cached --exit-code --no-patch', // no modified files
           'grunt shell:fetch-cli', // get correct jar
-          '[ -f ' + jar + ' ]', // correct jar must be there
           'git tag v' + packageJson.version,
           'grunt shell:publish',
           'git push --tags',
