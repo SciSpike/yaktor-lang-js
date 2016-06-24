@@ -9,14 +9,15 @@ module.exports = function (grunt) {
   var basePath = grunt.option('basePath') || './'
   var path = require('path')
   var packageJson = require(path.resolve('package.json'))
-  var tag = 'v' + packageJson.version.match(/^(\d+\.\d+\.\d+).*$/)[1]
+  var tag = 'v' + packageJson.version.match(/^(\d+\.\d+\.\d+).*$/)[ 1 ]
   var newTag = tag.replace(/\.\d+$/, '.x')
   var master = grunt.option('source-branch') || 'master'
   var mvnGroupId = 'io.yaktor'
   var mvnArtifactId = 'yaktor-xtext-dsl-cli'
-  var mvnVersion = packageJson.version.replace(/\-pre\.\d+$/, '-SNAPSHOT')
-  var mvnArtifact = [mvnGroupId, mvnArtifactId, mvnVersion].join(':')
-  var jar = path.join('bin', [mvnArtifactId, mvnVersion].join('-') + '.jar')
+  // TODO: once we're publishing yaktor-dsl-xtext to Maven central, replace the following line with: var version = require(packageJson).version.replace(/\-pre\.\d+$/, '-SNAPSHOT') 
+  var mvnVersion = packageJson.version.replace(/\-pre\.\d+\$/, '') + '-SNAPSHOT'
+  var mvnArtifact = [ mvnGroupId, mvnArtifactId, mvnVersion ].join(':')
+  var jar = path.join('bin', [ mvnArtifactId, mvnVersion ].join('-') + '.jar')
 
   var config = {
     'basePath': basePath,
@@ -45,7 +46,7 @@ module.exports = function (grunt) {
         command: 'git pull'
       },
       'add-owner': {
-        command: [ 'npm owner add', grunt.option('owner'), packageJson.name].join(' ')
+        command: [ 'npm owner add', grunt.option('owner'), packageJson.name ].join(' ')
       },
       'release-minor': {
         'command': [
