@@ -53,6 +53,7 @@ module.exports = function (grunt) {
       },
       'create-maintenance-branch':{
         command:'git checkout -b ' + newTag + ' ' + tag
+      },
       'create-tag': {
         command: 'git tag v' + packageJson.version
       },
