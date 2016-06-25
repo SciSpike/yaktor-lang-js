@@ -18,7 +18,7 @@ module.exports = function (grunt) {
   var mvnGroupId = 'io.yaktor'
   var mvnArtifactId = 'yaktor-xtext-dsl-cli'
   // TODO: once we're publishing yaktor-dsl-xtext to Maven central, replace the following line with: var version = require(packageJson).version.replace(/\-pre\.\d+$/, '-SNAPSHOT') 
-  var mvnVersion = packageJson.version.replace(/\-pre\.\d+\$/, '') + '-SNAPSHOT'
+  var mvnVersion = packageJson.version.replace(/\-pre.*/, '') + '-SNAPSHOT'
   var mvnArtifact = [ mvnGroupId, mvnArtifactId, mvnVersion ].join(':')
   var jar = path.join('bin', [ mvnArtifactId, mvnVersion ].join('-') + '.jar')
 
@@ -52,7 +52,9 @@ module.exports = function (grunt) {
         command: [ 'npm owner add', grunt.option('owner'), packageJson.name ].join(' ')
       },
       'create-maintenance-branch':{
-        command:['git checkout -b ' + newTag + ' ' + tag
+        command:'git checkout -b ' + newTag + ' ' + tag
+      'create-tag': {
+        command: 'git tag v' + packageJson.version
       },
       'release-minor': {
         'command': [
@@ -86,7 +88,7 @@ module.exports = function (grunt) {
           '[ -z "$(git status -s)" ]', // no untracked files
           'git diff --cached --exit-code --no-patch', // no modified files
           'grunt shell:fetch-cli', // get correct jar
-          'git tag v' + packageJson.version,
+          'grunt shell:create-tag',
           'grunt shell:publish',
           'git push --tags',
           'grunt bump:prerelease --no-tag'
