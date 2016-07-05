@@ -1,6 +1,7 @@
 {
   "name": "yaktor-lang",
   "version": "0.3.0-pre.2",
+  "license": "Apache-2.0",
   "dependencies": {},
   "devDependencies": {
     "commander": "2.9.0",
