@@ -1,5 +1,7 @@
 # yaktor-lang
 
+[![Join the chat at https://gitter.im/SciSpike/yaktor-lang-js](https://badges.gitter.im/SciSpike/yaktor-lang-js.svg)](https://gitter.im/SciSpike/yaktor-lang-js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Generate Node.js code from Domain & Conversation DSLs.  
 
 ## Description
