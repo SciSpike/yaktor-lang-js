@@ -1,11 +1,13 @@
 # yaktor-lang
 
+> NOTE: This repository is no longer used and should be ignored.  It has been superceded by https://github.com/SciSpike/yaktor-dsl-xtext/tree/master/cli/src/main/npm in order to coordinate releases with yaktor-dsl-xtext.
+
 Generate Node.js code from Domain & Conversation DSLs.  
 
 ## Description
 
 Generate default implementation for a [Yaktor](https://github.com/Scispike/yaktor) project based on the `cl` and `dm` syntax.
-The generated code can easily be extended and enhanced. As well you can maintain documentation which add value to the generated code. 
+The generated code can easily be extended and enhanced. As well you can maintain documentation which add value to the generated code.
 
 
 
@@ -14,7 +16,7 @@ The generated code can easily be extended and enhanced. As well you can maintain
 It is a thin wrapper around the Java command line runnable jar built by [yaktor-dsl-xtext](https://github.com/SciSpike/yaktor-dsl-xtext), so this module requires that `java` version `1.7.0` or later be on the machine's path whereon this module is run.
 
 ```bash
-yaktor-lang files ... 
+yaktor-lang files ...
 ```
 Where files are `cl` and/or `dm` syntax files.
 
